@@ -1,26 +1,366 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+@config "../tailwind.config.ts";
+@custom-variant dark (&:is(.dark *));
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+    :root {
+        --background: 325 30% 95%;
+        --foreground: 280 50% 30%;
+
+        --card: 325 30% 98%;
+        --card-foreground: 280 50% 30%;
+
+        --popover: 325 30% 95%;
+        --popover-foreground: 280 50% 30%;
+
+        --primary: 330 80% 65%;
+        --primary-foreground: 325 30% 98%;
+
+        --secondary: 180 70% 55%;
+        --secondary-foreground: 325 30% 98%;
+
+        --muted: 325 30% 90%;
+        --muted-foreground: 280 50% 50%;
+
+        --accent: 180 70% 55%;
+        --accent-foreground: 325 30% 98%;
+
+        --destructive: 0 80% 60%;
+        --destructive-foreground: 325 30% 98%;
+
+        --border: 330 80% 65%;
+        --input: 330 80% 65%;
+        --ring: 330 80% 65%;
+
+        --radius: 0;
+    }
+
+    .dark {
+        --background: 280 50% 5%;
+        --foreground: 330 100% 80%;
+
+        --card: 280 50% 10%;
+        --card-foreground: 330 100% 80%;
+
+        --popover: 280 50% 5%;
+        --popover-foreground: 330 100% 80%;
+
+        --primary: 330 100% 65%;
+        --primary-foreground: 280 50% 5%;
+
+        --secondary: 180 100% 65%;
+        --secondary-foreground: 280 50% 5%;
+
+        --muted: 280 50% 15%;
+        --muted-foreground: 330 100% 60%;
+
+        --accent: 180 100% 65%;
+        --accent-foreground: 280 50% 5%;
+
+        --destructive: 0 100% 65%;
+        --destructive-foreground: 280 50% 5%;
+
+        --border: 330 100% 65%;
+        --input: 330 100% 65%;
+        --ring: 330 100% 65%;
+    }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-family: "VT323", monospace;
+    }
+
+    .dark body {
+        text-shadow: 0 0 5px rgba(255, 105, 180, 0.7);
+    }
+
+    @keyframes scanline {
+        0% {
+            transform: translateY(-100%);
+        }
+        100% {
+            transform: translateY(100%);
+        }
+    }
+
+    @keyframes blink {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes glitch {
+        0% {
+            text-shadow: 0.05em 0 0 rgba(255, 0, 255, 0.75),
+                -0.05em -0.025em 0 rgba(0, 255, 255, 0.75),
+                -0.025em 0.05em 0 rgba(0, 255, 0, 0.75);
+        }
+        14% {
+            text-shadow: 0.05em 0 0 rgba(255, 0, 255, 0.75),
+                -0.05em -0.025em 0 rgba(0, 255, 255, 0.75),
+                -0.025em 0.05em 0 rgba(0, 255, 0, 0.75);
+        }
+        15% {
+            text-shadow: -0.05em -0.025em 0 rgba(255, 0, 255, 0.75),
+                0.025em 0.025em 0 rgba(0, 255, 255, 0.75),
+                -0.05em -0.05em 0 rgba(0, 255, 0, 0.75);
+        }
+        49% {
+            text-shadow: -0.05em -0.025em 0 rgba(255, 0, 255, 0.75),
+                0.025em 0.025em 0 rgba(0, 255, 255, 0.75),
+                -0.05em -0.05em 0 rgba(0, 255, 0, 0.75);
+        }
+        50% {
+            text-shadow: 0.025em 0.05em 0 rgba(255, 0, 255, 0.75),
+                0.05em 0 0 rgba(0, 255, 255, 0.75),
+                0 -0.05em 0 rgba(0, 255, 0, 0.75);
+        }
+        99% {
+            text-shadow: 0.025em 0.05em 0 rgba(255, 0, 255, 0.75),
+                0.05em 0 0 rgba(0, 255, 255, 0.75),
+                0 -0.05em 0 rgba(0, 255, 0, 0.75);
+        }
+        100% {
+            text-shadow: -0.025em 0 0 rgba(255, 0, 255, 0.75),
+                -0.025em -0.025em 0 rgba(0, 255, 255, 0.75),
+                -0.025em -0.05em 0 rgba(0, 255, 0, 0.75);
+        }
+    }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+@layer components {
+    .terminal-border {
+        @apply border-2;
+        @apply border-primary;
+    }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    .terminal-border {
+        @apply shadow-[0_0_10px_rgba(255,105,180,0.3)];
+    }
+
+    .dark .terminal-border {
+        @apply shadow-[0_0_10px_rgba(255,105,180,0.5)];
+    }
+
+    .terminal-container {
+        @apply relative;
+        @apply overflow-hidden;
+        @apply border-2;
+        @apply border-primary;
+        @apply bg-card;
+        @apply p-4;
+    }
+
+    .terminal-container::before {
+        content: "";
+        @apply absolute;
+        @apply inset-0;
+        @apply pointer-events-none;
+        @apply bg-gradient-to-b;
+        @apply from-transparent;
+        @apply via-primary/5;
+        @apply to-transparent;
+        @apply opacity-30;
+        animation: scanline 8s linear infinite;
+    }
+
+    .terminal-container::after {
+        content: "";
+        @apply absolute;
+        @apply inset-0;
+        @apply pointer-events-none;
+        @apply bg-background;
+        @apply opacity-10;
+        background-image: repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.05),
+            rgba(0, 0, 0, 0.05) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+    }
+
+    .dark .terminal-container::after {
+        background-image: repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.15) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+    }
+
+    .terminal-header {
+        @apply flex;
+        @apply items-center;
+        @apply justify-between;
+        @apply mb-2;
+        @apply pb-2;
+        @apply border-b;
+        @apply border-primary/50;
+    }
+
+    .terminal-title {
+        @apply text-primary;
+        @apply font-bold;
+        @apply uppercase;
+        @apply tracking-wider;
+    }
+
+    .terminal-controls {
+        @apply flex;
+        @apply gap-2;
+    }
+
+    .terminal-control {
+        @apply w-3;
+        @apply h-3;
+        @apply rounded-full;
+    }
+
+    .terminal-button {
+        @apply px-4;
+        @apply py-2;
+        @apply bg-primary;
+        @apply text-primary-foreground;
+        @apply font-bold;
+        @apply border-2;
+        @apply border-primary/70;
+        @apply hover:bg-primary/90;
+        @apply transition-colors;
+        @apply duration-200;
+        @apply uppercase;
+        @apply tracking-wider;
+    }
+
+    .terminal-button {
+        @apply shadow-[0_0_10px_rgba(255,105,180,0.3)];
+        @apply hover:shadow-[0_0_15px_rgba(255,105,180,0.5)];
+    }
+
+    .dark .terminal-button {
+        @apply shadow-[0_0_10px_rgba(255,105,180,0.5)];
+        @apply hover:shadow-[0_0_15px_rgba(255,105,180,0.8)];
+    }
+
+    .terminal-button-alt {
+        @apply px-4;
+        @apply py-2;
+        @apply bg-secondary;
+        @apply text-secondary-foreground;
+        @apply font-bold;
+        @apply border-2;
+        @apply border-secondary/70;
+        @apply hover:bg-secondary/90;
+        @apply transition-colors;
+        @apply duration-200;
+        @apply uppercase;
+        @apply tracking-wider;
+    }
+
+    .terminal-button-alt {
+        @apply shadow-[0_0_10px_rgba(0,255,255,0.3)];
+        @apply hover:shadow-[0_0_15px_rgba(0,255,255,0.5)];
+    }
+
+    .dark .terminal-button-alt {
+        @apply shadow-[0_0_10px_rgba(0,255,255,0.5)];
+        @apply hover:shadow-[0_0_15px_rgba(0,255,255,0.8)];
+    }
+
+    .terminal-card {
+        @apply bg-card;
+        @reference terminal-border;
+        @apply p-6;
+    }
+
+    .terminal-section {
+        @apply my-16;
+    }
+
+    .terminal-heading {
+        @apply text-3xl;
+        @apply font-bold;
+        @apply mb-8;
+        @apply text-center;
+        @apply relative;
+        @apply text-primary;
+    }
+
+    .dark .terminal-heading {
+        animation: glitch 3s infinite alternate;
+    }
+
+    .terminal-heading::before {
+        content: "< ";
+        @apply text-secondary;
+    }
+
+    .terminal-heading::after {
+        content: " />";
+        @apply text-secondary;
+    }
+
+    .cursor-blink {
+        @apply inline-block;
+        @apply w-2;
+        @apply h-4;
+        @apply bg-primary;
+        @apply ml-1;
+        @apply align-middle;
+        animation: blink 1s step-end infinite;
+    }
+
+    .grid-lines {
+        background-size: 50px 50px;
+    }
+
+    .light .grid-lines {
+        background-image: linear-gradient(
+                to right,
+                rgba(255, 105, 180, 0.1) 1px,
+                transparent 1px
+            ),
+            linear-gradient(
+                to bottom,
+                rgba(255, 105, 180, 0.1) 1px,
+                transparent 1px
+            );
+    }
+
+    .dark .grid-lines {
+        background-image: linear-gradient(
+                to right,
+                rgba(255, 105, 180, 0.1) 1px,
+                transparent 1px
+            ),
+            linear-gradient(
+                to bottom,
+                rgba(255, 105, 180, 0.1) 1px,
+                transparent 1px
+            );
+    }
+
+    .animate-scanline {
+        animation: scanline 8s linear infinite;
+    }
+
+    .terminal-theme-toggle {
+        @apply relative inline-flex h-9 w-9 items-center justify-center rounded-md border border-primary bg-transparent text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
+    }
+
+    .dark .terminal-theme-toggle {
+        @apply shadow-[0_0_10px_rgba(255,105,180,0.3)];
+    }
 }
