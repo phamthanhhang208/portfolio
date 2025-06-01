@@ -91,13 +91,12 @@ const projects = [
     // },
 
     {
-        title: "Form Builder",
-        description:
-            "A simple Google Forms clone that lets users create basic forms and collect responses. It covers core features but isn’t as advanced or polished as the original.",
-        image: "/placeholder.svg?height=200&width=400",
-        tags: ["Next.js", "TypeScript", "MongoDB"],
-        liveLink: "#",
-        githubLink: "#",
+        title: "Snippy",
+        description: "A modern, full-stack code snippet management app",
+        image: "/image/snippy.png?height=200&width=400",
+        tags: ["Next.js", "TypeScript", "Supabase", "React Query"],
+        liveLink: "https://snippy-tan.vercel.app/",
+        githubLink: "https://github.com/phamthanhhang208/snippy",
     },
 ];
 

@@ -6,7 +6,7 @@ export const metadata = {
     title: "Hang's Portfolio",
     description: "My personal 80s/90s terminal-styled portfolio",
     icons: {
-        icon: [{ url: "/computer.svg", href: "/computer.svg" }],
+        icon: [{ url: "/square-code.svg", href: "/squared-code.svg" }],
     },
 };
 
